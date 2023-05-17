@@ -1,0 +1,176 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Item Tax Master"></app-module-header>
+<div class="main">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="itemTaxForm">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="head-1">
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">State: <span class="mandatory-input">*</span></label>
+                  <div>
+                    <mat-form-field>
+                      <mat-select formControlName="state_code" #singleSelect>
+                        <mat-option>
+                          <ngx-mat-select-search placeholderLabel="Select" [formControl]="searchStateFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                            <span ngxMatSelectNoEntriesFound>
+                              No data found
+                            </span>
+                          </ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let val of search_state_data_arr | async" [value]="val.state_name">
+                          {{val.state_name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['state_code'].touched) && f['state_code'].errors?.['required']">State is
+                    required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Item: <span class="mandatory-input">*</span></label>
+                  <div>
+                    <mat-form-field>
+                      <mat-select formControlName="item_code" #singleItemSelect>
+                        <mat-option>
+                          <ngx-mat-select-search placeholderLabel="Select" [formControl]="searchItemFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                            <span ngxMatSelectNoEntriesFound>
+                              No data found
+                            </span>
+                          </ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let val of search_item_data_arr | async" [value]="val.item_name">
+                          {{val.item_name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['item_code'].touched) && f['item_code'].errors?.['required']">Item Name is
+                    required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Tax: <span class="mandatory-input">*</span></label>
+                  <div>
+                    <select formControlName="tax_code" id="" class="form-control">
+                      <option [value]="val.tax_name" *ngFor="let val of taxData">{{val.tax_name}}</option>
+                    </select>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['tax_code'].touched) && f['tax_code'].errors?.['required']">Tax Name is
+                    required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Start Date: <span class="mandatory-input">*</span></label>
+                  <div>
+                    <input type="date" class="form-control" formControlName="start_date">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['start_date'].touched) && f['start_date'].errors?.['required']">Start Date is
+                    required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">End Date: <span class="mandatory-input">*</span></label>
+                  <div>
+                    <input type="date" class="form-control" formControlName="end_date">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['end_date'].touched) && f['end_date'].errors?.['required']">End Date is
+                    required</span>
+                </div>
+                <div class="col-sm-2 form-group" *ngIf="isEdit">
+                  <label class="center-block">Status: </label>
+                  <div>
+                    <select class="form-control" formControlName="status">
+                      <option disabled>Select</option>
+                      <option value="Active" selected>Active</option>
+                      <option value="Inactive">Inactive</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isEdit">
+            <div class="head-1">
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Created By: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{created_by}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Created At: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{created_at}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Updated By: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{updated_by}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Updated At: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{updated_at}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="row-border hover" id="evaluator_table">
+          <thead>
+            <tr>
+              <th width="25">Action</th>
+              <th>State</th>
+              <th>Item</th>
+              <th>Tax</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th>Updated By</th>
+              <th>Updated Date</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="data?.length != 0">
+            <tr *ngFor="let val of data">
+              <td class="text-center">
+                <img class="edit-icon" src="../../../assets/icons/edit.png" (click)="editItemTaxList(val._id)" placement="bottom" ngbTooltip="EDIT">
+              </td>
+              <td>{{val.state_code}}</td>
+              <td>{{val.item_code}}</td>
+              <td>{{val.tax_code}}</td>
+              <td>{{val.start_date}}</td>
+              <td>{{val.end_date}}</td>
+              <td>{{val.status}}</td>
+              <td>{{val.created_by}}</td>
+              <td>{{val.created_at | date:'dd-MM-y HH:MM:SS'}}</td>
+              <td>{{val.updated_by}}</td>
+              <td>{{val.updated_at | date:'dd-MM-y HH:MM:SS'}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="data?.length == 0">
+            <tr>
+              <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

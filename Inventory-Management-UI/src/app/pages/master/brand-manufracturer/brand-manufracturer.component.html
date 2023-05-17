@@ -1,0 +1,19 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Brand / Manufracturer Master"></app-module-header>
+<div class="main">
+    <div class="row">
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isManfra ? 'activeBtn' : ''" (click)="isMenuActive('country')">Manufracturer Master</button>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isBrand ? 'activeBtn' : ''" (click)="isMenuActive('state')">Brand Master</button>
+      </div>
+    </div>
+    <div *ngIf="isManfra">
+        <app-manufracturer></app-manufracturer>
+    </div>
+    <div *ngIf="isBrand">
+      <app-brand></app-brand>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,142 @@
+<div class="main">
+  <div class="row">
+    <div class="col-sm-12" style="padding: 0;">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="stateForm">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="head-1">
+                  <div class="row">
+                    <div class="col-sm-2 form-group">
+                      <label class="center-block">State Code: <span class="mandatory-input">*</span> </label>
+                      <div>
+                        <input class="form-control" formControlName="state_code" appAllCapInput>
+                      </div>
+                      <span class="validation-error mandatory-input" *ngIf="(submitted || f['state_code'].touched) && f['state_code'].errors?.['required']">State Code is required</span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="center-block">State Name: <span class="mandatory-input">*</span> </label>
+                      <div>
+                        <input class="form-control" formControlName="state_name">
+                      </div>
+                      <span class="validation-error mandatory-input" *ngIf="(submitted || f['state_name'].touched) && f['state_name'].errors?.['required']">State Name is required</span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="center-block">Country Code: <span class="mandatory-input">*</span> </label>
+                      <div>
+                        <mat-form-field>
+                          <mat-select formControlName="country_code" #singleSelect>
+                            <mat-option>
+                              <ngx-mat-select-search placeholderLabel="Select" [formControl]="countryFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                <span ngxMatSelectNoEntriesFound>
+                                  No data found
+                                </span>
+                              </ngx-mat-select-search>
+                            </mat-option>
+                            <mat-option *ngFor="let val of country_data_arr | async" [value]="val.country_code">
+                              {{val.country_name}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                      <span class="validation-error mandatory-input" *ngIf="(submitted || f['country_code'].touched) && f['country_code'].errors?.['required']">Country Code is required</span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="center-block">State Type: <span class="mandatory-input">*</span> </label>
+                      <div>
+                        <input class="form-control" formControlName="state_type" appAllCapInput>
+                      </div>
+                      <span class="validation-error mandatory-input" *ngIf="(submitted || f['state_type'].touched) && f['state_type'].errors?.['required']">State Type is required</span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                      <label class="center-block">GST State Code: </label>
+                      <div>
+                        <input class="form-control" formControlName="gst_state_code">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-4" *ngIf="isEdit">
+                <div class="head-1">
+                  <div class="row">
+                    <div class="col-sm-3 form-group">
+                      <label class="center-block">Created By: </label>
+                      <div>
+                        <p class="form-control readonly" readonly>{{created_by}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                      <label class="center-block">Created At: </label>
+                      <div>
+                        <p class="form-control readonly" readonly>{{created_at}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                      <label class="center-block">Updated By: </label>
+                      <div>
+                        <p class="form-control readonly" readonly>{{updated_by}}</p>
+                      </div>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                      <label class="center-block">Updated At: </label>
+                      <div>
+                        <p class="form-control readonly" readonly>{{updated_at}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="row-border hover" id="evaluator_table">
+              <thead>
+                <tr>
+                  <th width="25">Action</th>
+                  <th>State Code</th>
+                  <th>State Name</th>
+                  <th>Country Code</th>
+                  <th>State type</th>
+                  <th>GST State Code</th>
+                  <th>Status</th>
+                  <th>Created By</th>
+                  <th>Created Date</th>
+                  <th>Updated By</th>
+                  <th>Updated Date</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="data?.length != 0">
+                <tr *ngFor="let val of data">
+                  <td class="text-center">
+                    <img class="edit-icon" src="../../../assets/icons/edit.png" (click)="editCountryList(val._id)" placement="bottom" ngbTooltip="EDIT">
+                  </td>
+                  <td>{{val.state_code}}</td>
+                  <td>{{val.state_name}}</td>
+                  <td>{{val.country_code}}</td>
+                  <td>{{val.state_type}}</td>
+                  <td>{{val.gst_state_code}}</td>
+                  <td>{{val.status}}</td>
+                  <td>{{val.created_by}}</td>
+                  <td>{{val.created_at | date:'dd-MM-y HH:MM:SS'}}</td>
+                  <td>{{val.updated_by}}</td>
+                  <td>{{val.updated_at | date:'dd-MM-y HH:MM:SS'}}</td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="data?.length == 0">
+                <tr>
+                  <td colspan="3" class="no-data-available">No data!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

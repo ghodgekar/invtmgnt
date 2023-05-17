@@ -1,0 +1,274 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()"
+  (generateExcelChild)="generateExcel()" (onResetChild)="onReset()"
+  moduleTitle="Item Level Scheme Master"></app-module-header>
+<div class="main">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="itemLevelForm">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="head-1">
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Location: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="loc_code"
+                      oninput="this.value = this.value.toUpperCase()">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['loc_code'].touched) && f['loc_code'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Promo: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="promo_code"
+                      oninput="this.value = this.value.toUpperCase()">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['promo_code'].touched) && f['promo_code'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Item: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <mat-form-field>
+                      <mat-select formControlName="item_code" #singleSelect>
+                        <mat-option>
+                          <ngx-mat-select-search placeholderLabel="Select" [formControl]="searchFilterCtrl"
+                            [preventHomeEndKeyPropagation]="true">
+                            <span ngxMatSelectNoEntriesFound>
+                              No data found
+                            </span>
+                          </ngx-mat-select-search>
+                        </mat-option>
+                        <mat-option *ngFor="let val of search_data_arr | async" [value]="val.item_name">
+                          {{val.item_name}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['item_code'].touched) && f['item_code'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Batch: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="batch_no">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['batch_no'].touched) && f['batch_no'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Start Date Time: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input type="datetime-local" class="form-control" formControlName="from_date">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['from_date'].touched) && f['from_date'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">End Date Time: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input type="datetime-local" class="form-control" formControlName="to_date">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['to_date'].touched) && f['to_date'].errors?.['required']">Required
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">From Qty: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="from_qty">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['from_qty'].touched) && f['from_qty'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">To Qty: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="to_qty">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['to_qty'].touched) && f['to_qty'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Max Qty: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="max_qty">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['max_qty'].touched) && f['max_qty'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Fixed Rate: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="disc_perc">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['disc_perc'].touched) && f['disc_perc'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Disc Perc: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="disc_amt">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['disc_amt'].touched) && f['disc_amt'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Disc Amt: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <input class="form-control" formControlName="fix_rate">
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['fix_rate'].touched) && f['fix_rate'].errors?.['required']">Required
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Calc On: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <select name="" id="" formControlName="calc_on" class="form-control">
+                      <option>MRP</option>
+                    </select>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['calc_on'].touched) && f['calc_on'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Cust Type Incl: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <select name="" id="" formControlName="cust_type_incl" class="form-control">
+                      <option>Regular</option>
+                      <option>Family</option>
+                      <option>Gold</option>
+                    </select>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['cust_type_incl'].touched) && f['cust_type_incl'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Cust Type Excl: <span class="mandatory-input">*</span> </label>
+                  <div>
+                    <select name="" id="" formControlName="cust_type_excl" class="form-control">
+                      <option>Regular</option>
+                      <option>Family</option>
+                      <option>Gold</option>
+                    </select>
+                  </div>
+                  <span class="validation-error mandatory-input"
+                    *ngIf="(submitted || f['cust_type_excl'].touched) && f['cust_type_excl'].errors?.['required']">Required
+                  </span>
+                </div>
+                <div class="col-sm-2 form-group"></div>
+                <div class="col-sm-2 form-group"></div>
+                <div class="col-sm-2 form-group"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isEdit">
+            <div class="head-1">
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Created By: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{created_by}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Created At: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{created_at}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Updated By: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{updated_by}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Updated At: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{updated_at}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="row-border hover" id="evaluator_table">
+          <thead>
+            <tr>
+              <th width="25">Action</th>
+              <th>Location</th>
+              <th>Promo</th>
+              <th>Item</th>
+              <th>Batch</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>From Qty</th>
+              <th>To Qty</th>
+              <th>Max Qty</th>
+              <th>Fixed Rate</th>
+              <th>Status</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th>Updated By</th>
+              <th>Updated Date</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="data?.length != 0">
+            <tr *ngFor="let val of data">
+              <td class="text-center">
+                <img class="edit-icon" src="../../../assets/icons/edit.png" (click)="editItemLevelSchemeList(val._id)"
+                  placement="bottom" ngbTooltip="EDIT">
+              </td>
+              <td>{{val.loc_code}}</td>
+              <td>{{val.promo_code}}</td>
+              <td>{{val.item_code}}</td>
+              <td>{{val.batch_no}}</td>
+              <td>{{val.from_date}}</td>
+              <td>{{val.to_date}}</td>
+              <td>{{val.from_qty}}</td>
+              <td>{{val.to_qty}}</td>
+              <td>{{val.max_qty}}</td>
+              <td>{{val.fix_rate}}</td>
+              <td>{{val.status}}</td>
+              <td>{{val.created_by}}</td>
+              <td>{{val.created_at | date:'dd-MM-y HH:MM:SS'}}</td>
+              <td>{{val.updated_by}}</td>
+              <td>{{val.updated_at | date:'dd-MM-y HH:MM:SS'}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="data?.length == 0">
+            <tr>
+              <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,404 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()"
+  (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Item Master"></app-module-header>
+<div class="main">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="ItemForm">
+        <div class="head-1">
+          <div class="row">
+            <div class="col-sm-2 form-group">
+              <label class="center-block">Item Code: </label>
+              <div>
+                <input class="form-control" formControlName="item_code" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+            <div class="col-sm-2 form-group">
+              <label class="center-block">Item Name: </label>
+              <div>
+                <input class="form-control" formControlName="item_name" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+            <div class="col-sm-2 form-group">
+              <label class="center-block">Inventory: </label>
+              <div>
+                <input class="form-control" formControlName="inventory" oninput="this.value = this.value.toUpperCase()">
+              </div>
+            </div>
+            <div class="col-sm-2 form-group">
+              <div class="row">
+                <div class="col-sm-6">
+                  <label class="center-block">Weight: </label>
+                  <div>
+                    <input class="form-control" formControlName="item_weight">
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="center-block">Unit: </label>
+                  <div>
+                    <input class="form-control" formControlName="item_UOM">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2 form-group">
+              <label class="center-block">Regional Name: </label>
+              <div>
+                <input class="form-control" formControlName="regional_name">
+              </div>
+            </div>
+            <div class="col-sm-2 form-group">
+              <label class="center-block">Item Full Name: </label>
+              <div>
+                <input class="form-control" formControlName="item_full_name">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="head-2">
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block" style="float: left;">Sub Category: </label>
+                  <i class="fa fa-plus-circle" style="float: right; font-size: 17px; color: red;"></i>
+                  <div>
+                    <select formControlName="sub_category_code" id="" class="form-control">
+                      <option [value]="val.sub_category_code" *ngFor="let val of subcategoryData">
+                        {{val.sub_category_name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block" style="float: left;">Category: </label>
+                  <i class="fa fa-plus-circle" style="float: right; font-size: 17px; color: red;"></i>
+                  <div>
+                    <select formControlName="category_code" id="" class="form-control">
+                      <option [value]="val.category_code" *ngFor="let val of categoryData">{{val.category_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block" style="float: left;">Brand: </label>
+                  <i class="fa fa-plus-circle" style="float: right; font-size: 17px; color: red;"></i>
+                  <div>
+                    <select formControlName="brand_code" id="" class="form-control">
+                      <option [value]="val.brand_code" *ngFor="let val of brandData">{{val.brand_name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block" style="float: left;">Manufracturer: </label>
+                  <i class="fa fa-plus-circle" style="float: right; font-size: 17px; color: red;"></i>
+                  <div>
+                    <select formControlName="manufact_code" id="" class="form-control">
+                      <option [value]="val.manufact_code" *ngFor="let val of manufracturerData">{{val.manufact_name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Item Type: </label>
+                  <div>
+                    <select formControlName="item_type" id="" class="form-control">
+                      <option>Pack</option>
+                      <option>Loose</option>
+                      <option>Varient</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Parent Item: </label>
+                  <div>
+                    <select formControlName="item_parent" id="" class="form-control">
+                      <option>Test</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Pack Charge: </label>
+                  <div>
+                    <input class="form-control" formControlName="pack_charge">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Tax(%): </label>
+                  <div>
+                    <select formControlName="tax_code" id="" class="form-control">
+                      <option [value]="val.tax_code" *ngFor="let val of taxData">{{val.tax_name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Label Reqd: </label>
+                  <div>
+                    <select formControlName="label_reqd" id="" class="form-control">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">QTY-IN-Case : </label>
+                  <div>
+                    <input class="form-control" formControlName="qty_in_case">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group"></div>
+                <div class="col-sm-3 form-group"></div>
+              </div>
+            </div>
+            <div class="head-2">
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">On MRP: </label>
+                  <div>
+                    <select formControlName="on_mrp" id="" class="form-control">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Mark Up(%): </label>
+                  <div>
+                    <input class="form-control" formControlName="markup">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Mark Down(%): </label>
+                  <div>
+                    <input class="form-control" formControlName="markdown">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Rate Update: </label>
+                  <div>
+                    <select formControlName="rate_upd" id="" class="form-control">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">HSN No: </label>
+                  <div>
+                    <input class="form-control" formControlName="hsn">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Expiry Reqd: </label>
+                  <div>
+                    <select formControlName="exp_req" id="" class="form-control">
+                      <option>Yes</option>
+                      <option>No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Shelf Life: </label>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <input class="form-control" formControlName="shelf_life_period">
+                    </div>
+                    <div class="col-sm-8">
+                      <select formControlName="shelf_life_dm" id="" class="form-control">
+                        <option>Days</option>
+                        <option>Months</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Group 1: </label>
+                  <div>
+                    <input class="form-control" formControlName="group1">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Group 2: </label>
+                  <div>
+                    <input class="form-control" formControlName="group2">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Group 3: </label>
+                  <div>
+                    <input class="form-control" formControlName="group3">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Group 4: </label>
+                  <div>
+                    <input class="form-control" formControlName="group4">
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="head-3 dynamic-table">
+              <table class="table table-bordered" formArrayName="barcodes">
+                <tr>
+                  <th>Sr.No:</th>
+                  <th>Barcode</th>
+                  <th>User Code</th>
+                  <th>Created At</th>
+                  <th><button type="button" (click)="addBarcodes()" class="btn-primary">Add</button></th>
+                </tr>
+                <tr *ngFor="let barcode of barcodes().controls; let i=index" [formGroupName]="i">
+                  <td>{{i + 1}}</td>
+                  <td>
+                    <input type="text" formControlName="barcode" class="form-control">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="created_by" class="form-control">
+                  </td>
+                  <td>
+                    <input type="text" formControlName="created_at" class="form-control">
+                  </td>
+                  <td>
+                    <button (click)="removeBarcodes(i)" class="btn-danger">Remove</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="head-3">
+              <div class="row">
+                <div class="col-sm-6 form-group">
+                  <label class="center-block">Created On </label>
+                  <div>
+                    <input class="form-control" type="date" formControlName="created_at">
+                  </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                  <label class="center-block">Created By: </label>
+                  <div>
+                    <input class="form-control" formControlName="created_by">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 form-group">
+                  <label class="center-block">Updated On </label>
+                  <div>
+                    <input class="form-control" formControlName="updated_at">
+                  </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                  <label class="center-block">Updated By: </label>
+                  <div>
+                    <input class="form-control" type="date" formControlName="updated_by">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 form-group">
+                  <label class="center-block">Deactive Reason </label>
+                  <div>
+                    <input class="form-control" formControlName="deactive_reason">
+                  </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                  <label class="center-block">Deactive Date: </label>
+                  <div>
+                    <input class="form-control" type="date" formControlName="deactive_date">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table1 table-bordered" width="100%">
+          <thead>
+            <tr>
+              <th width="25">Action</th>
+              <th>Item Code</th>
+              <th>Item Name</th>
+              <th>Inventory</th>
+              <th>Weight</th>
+              <th>Unit</th>
+              <th>Regional Name</th>
+              <th>Category</th>
+              <th>Sub Category</th>
+              <th>Brand</th>
+              <th>Manufracturer</th>
+              <th>Status</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let val of data">
+              <td class="text-center">
+                <img class="edit-icon" src="../../../assets/icons/edit.png" (click)="editCompanyList(val._id)"
+                  placement="bottom" ngbTooltip="EDIT">
+              </td>
+              <td>{{val.item_code}}</td>
+              <td>{{val.item_name}}</td>
+              <td>{{val.inventory}}</td>
+              <td>{{val.item_weight}}</td>
+              <td>{{val.item_UOM}}</td>
+              <td>{{val.regional_name}}</td>
+              <td>{{val.category_code}}</td>
+              <td>{{val.sub_category_code}}</td>
+              <td>{{val.brand_code}}</td>
+              <td>{{val.manufact_code}}</td>
+              <td>{{val.status}}</td>
+              <td>{{val.created_by}}</td>
+              <td>{{val.created_at}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="display-view" style="display: none;">
+  <table class="table" id="table" #pdfTable>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Page</th>
+        <th>Parent Module</th>
+        <th>Image</th>
+        <th>Is Home</th>
+        <th>Status</th>
+        <th>Created By</th>
+        <th>Created Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let val of data">
+        <td>{{val.module_code}}</td>
+        <td>{{val.module_name}}</td>
+        <td>{{val.module_slug}}</td>
+        <td>{{val.parent_madule_code}}</td>
+        <td>{{val.module_image}}</td>
+        <td>{{val.is_home}}</td>
+        <td>{{val.status}}</td>
+        <td>{{val.created_by}}</td>
+        <td>{{val.created_at}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,209 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Rate Adjustment"></app-module-header>
+<div class="main">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="rateForm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="head-1">
+                            <div class="row top-1">
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Location: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="loc_code" [value]="location" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Barcode: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="item_code">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Item Code : </label>
+                                    <div>
+                                        <input class="form-control" formControlName="item_code" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <label class="center-block">Item Name : </label>
+                                    <div>
+                                        <input class="form-control" formControlName="item_code" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Dept: </label>
+                                    <div>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">SAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <br>
+                                    <button class="btn btn-primary">Proceed</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="head-1">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped fixed_header">
+                                    <thead class="BI_tablehead">
+                                        <tr>
+                                            <th>Batch No</th>
+                                            <th>Old Sate Rate</th>
+                                            <th>New Sale Rate</th>
+                                            <th>Old MRP</th>
+                                            <th>New MRP</th>
+                                            <th>Old Cost Rate</th>
+                                            <th>Cost Rate</th>
+                                            <th>Balance Qty</th>
+                                            <th>Date</th>
+                                            <th>Created By</th>
+                                            <th>Created At</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  class="BI_tablebody">
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control"></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                            <td><input class="form-control" readonly></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row top-1">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-1 form-group">
+                                    <label class="center-block">Old Markup%: </label>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <div>
+                                        <input class="form-control" formControlName="item_code">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    <label class="center-block">New Markup % : </label>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <div>
+                                        <input class="form-control" formControlName="item_code">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Calculated Cost Rate: </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div>
+                                        <input class="form-control" formControlName="item_code">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

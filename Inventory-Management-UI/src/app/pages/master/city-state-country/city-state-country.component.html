@@ -1,0 +1,25 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Country / State / City Master"></app-module-header>
+<div class="main">
+    <div class="row">
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isCountry ? 'activeBtn' : ''" (click)="isMenuActive('country')">Country Master</button>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isState ? 'activeBtn' : ''" (click)="isMenuActive('state')">State Master</button>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isCity ? 'activeBtn' : ''" (click)="isMenuActive('city')">City Master</button>
+      </div>
+    </div>
+    <div *ngIf="isCountry">
+        <app-country></app-country>
+    </div>
+    <div *ngIf="isState">
+      <app-state></app-state>
+    </div>
+    <div *ngIf="isCity">
+      <app-city></app-city>
+    </div>
+</div>
+
+<app-footer></app-footer>

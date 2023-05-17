@@ -1,0 +1,199 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Tax Master"></app-module-header>
+<div class="main">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="taxForm">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="head-1">
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Type:  <span class="mandatory-input">*</span></label>
+                  <div>
+                    <select class="form-control" formControlName="tax_type" (change)="taxTypeChange($event)">
+                      <option>GST</option>
+                      <option>VAT</option>
+                    </select>
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['tax_type'].touched) && f['tax_type'].errors?.['required']">Type is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Code:  <span class="mandatory-input">*</span></label>
+                  <div>
+                    <input class="form-control" formControlName="tax_code" appNumberInput>
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['tax_code'].touched) && f['tax_code'].errors?.['required']">Code is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Name:  <span class="mandatory-input">*</span></label>
+                  <div>
+                    <input class="form-control" formControlName="tax_name" appAllCapInput>
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['tax_name'].touched) && f['tax_name'].errors?.['required']">Name is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Tax(%):</label>
+                  <div>
+                    <input class="form-control" formControlName="tax_per" appNumberInput>
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['tax_per'].touched) && f['tax_per'].errors?.['required']">Tax(%) is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Tax Indicator:</label>
+                  <div>
+                    <input class="form-control" formControlName="tax_indicator">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['tax_indicator'].touched) && f['tax_indicator'].errors?.['required']">Tax Indicator is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">IGST (%):</label>
+                  <div>
+                    <input class="form-control" formControlName="igst" appNumberInput [readonly]="isVAT">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['igst'].touched) && f['igst'].errors?.['required']">IGST (%) is required</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">SGST (%):</label>
+                  <div>
+                    <input class="form-control" formControlName="sgst" appNumberInput [readonly]="isVAT">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['sgst'].touched) && f['sgst'].errors?.['required']">SGST (%) is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">CGST (%):</label>
+                  <div>
+                    <input class="form-control" formControlName="cgst" appNumberInput [readonly]="isVAT">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['cgst'].touched) && f['cgst'].errors?.['required']">CGST (%) is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">UTGST (%):</label>
+                  <div>
+                    <input class="form-control" formControlName="utgst" appNumberInput [readonly]="isVAT">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['utgst'].touched) && f['utgst'].errors?.['required']">UTGST (%) is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">CESS (%):</label>
+                  <div>
+                    <input class="form-control" formControlName="cess" appNumberInput [readonly]="isVAT">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['cess'].touched) && f['cess'].errors?.['required']">CESS (%) is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label class="center-block">Cess/Peice (%):</label>
+                  <div>
+                    <input class="form-control" formControlName="cessperpiece" appNumberInput [readonly]="isVAT">
+                  </div>
+                  <span class="validation-error mandatory-input" *ngIf="(submitted || f['cessperpiece'].touched) && f['cessperpiece'].errors?.['required']">Cess/Peice (%) is required</span>
+                </div>
+                <div class="col-sm-2 form-group">
+                  <div *ngIf="isEdit">
+                    <label class="center-block">Status</label>
+                    <div>
+                      <select class="form-control" formControlName="status">
+                        <option disabled>Select</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4" *ngIf="isEdit">
+            <div class="head-1">
+              <div class="row">
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Created By: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{created_by}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Created At: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{created_at}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Updated By: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{updated_by}}</p>
+                  </div>
+                </div>
+                <div class="col-sm-3 form-group">
+                  <label class="center-block">Updated At: </label>
+                  <div>
+                    <p class="form-control readonly" readonly>{{updated_at}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="row-border hover" id="evaluator_table">
+          <thead>
+            <tr>
+              <th width="25">Action</th>
+              <th>Type</th>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Tax(%)</th>
+              <th>Tax Indicator</th>
+              <th>IGST (%)</th>
+              <th>SGST (%)</th>
+              <th>CGST (%)</th>
+              <th>UTGST (%)</th>
+              <th>CESS (%)</th>
+              <th>Cess/Peice (%)</th>
+              <th>Status</th>
+              <th>Created By</th>
+              <th>Created Date</th>
+              <th>Updated By</th>
+              <th>Updated Date</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="data?.length != 0">
+            <tr *ngFor="let val of data">
+              <td class="text-center">
+                <img class="edit-icon" src="../../../assets/icons/edit.png" (click)="editTaxList(val._id)" placement="bottom" ngbTooltip="EDIT">
+              </td>
+              <td>{{val.tax_type}}</td>
+              <td>{{val.tax_code}}</td>
+              <td>{{val.tax_name}}</td>
+              <td>{{val.tax_per}}</td>
+              <td>{{val.tax_indicator}}</td>
+              <td>{{val.igst}}</td>
+              <td>{{val.sgst}}</td>
+              <td>{{val.cgst}}</td>
+              <td>{{val.utgst}}</td>
+              <td>{{val.cess}}</td>
+              <td>{{val.cessperpiece}}</td>
+              <td>{{val.status}}</td>
+              <td>{{val.created_by}}</td>
+              <td>{{val.created_at | date:'dd-MM-y HH:MM:SS'}}</td>
+              <td>{{val.updated_by}}</td>
+              <td>{{val.updated_at | date:'dd-MM-y HH:MM:SS'}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="data?.length == 0">
+            <tr>
+              <td colspan="3" class="no-data-available">No data!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

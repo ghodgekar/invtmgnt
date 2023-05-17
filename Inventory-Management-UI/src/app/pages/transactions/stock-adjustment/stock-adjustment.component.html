@@ -1,0 +1,160 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Rate Adjustment"></app-module-header>
+<div class="main">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="rateForm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="head-1">
+                            <div class="row top-1">
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">v-date: </label>
+                                    <div>
+                                        <input type="date" class="form-control" formControlName="v_date" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Dept: </label>
+                                    <div>
+                                        <select formControlName="dept_name" class="form-control">
+                                            <option value="SAL">SAL</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Adjustment Type : </label>
+                                    <div>
+                                        <select formControlName="adjmnt_type" class="form-control" aria-readonly="true">
+                                            <option value="M">Manual</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Narration : </label>
+                                    <div>
+                                        <input type="text" class="form-control" formControlName="narration">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="head-1">
+                            <div class="row top-1">
+                                <div class="col-sm-1 form-group">
+                                    Created By
+                                    <input type="text" class="form-control" formControlName="sachi"  >
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    Created At
+                                    <input type="date" class="form-control" formControlName="u_date"  >
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    Updated By
+                                    <input type="text" class="form-control" formControlName="sachi"  >
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    Updated At
+                                    <input type="date" class="form-control" formControlName="u_date"  >
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    <br>
+                                    Lock Flag
+                                    <input type="checkbox" formControlName="auth_flag" checked>
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    Lock By
+                                    <input type="text" class="form-control" formControlName="auth_ucode_sachi"  >
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    Lock At
+                                    <input type="date" class="form-control" formControlName="auth_ucode_date"  >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="head-1">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped fixed_header">
+                                    <thead class="BI_tablehead">
+                                        <tr>
+                                            <th>SKU CODE</th>
+                                            <th>SKU NAME</th>
+                                            <th>REASON</th>
+                                            <th>REC_ISS</th>
+                                            <th>Qty</th>
+                                            <th>Lot No</th>
+                                            <th>Bal-Qty</th>
+                                            <th>Sale Rate</th>
+                                            <th>M.R.P.</th>
+                                            <th>Cost Rate</th>
+                                            <th>Expire Date.</th>
+                                            <th><button class="btn btn-sm" (click)="addBarcode()"><i class="fa fa-plus-circle" style="font-size: 15px; color: yellow;"></i></button></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="BI_tablebody" formArrayName="barcodes">
+                                        <tr *ngFor="let barcode of barcodes.controls; let i=index" [formGroupName]="i">
+                                            <td><input type="text" class="form-control" formControlName="sku_code" (blur)="getItemList($event, i)"></td>
+                                            <td><input type="text" class="form-control" formControlName="sku_name" readonly></td>
+                                            <td>
+                                                <select class="form-control" formControlName="reason" (change)="onReasonSelect($event, i)">
+                                                    <option value="">- Select -</option>
+                                                    <option value="{{ item.reason_code }}" *ngFor="let item of reasonList;">{{ item.reason_desc }} | {{ item.rec_iss }} | {{ item.new_adj }}</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control" formControlName="rec_iss" readonly></td>
+                                            <td><input type="text" class="form-control" formControlName="qty"></td>
+                                            <td>
+                                                <input type="text" class="form-control" formControlName="lot_no" *ngIf="isSelect">
+                                                <select class="form-control" formControlName="lot_no" (change)="lotchange($event, i)" *ngIf="!isSelect">
+                                                    <option value="">- Select -</option>
+                                                    <option value="{{ item.batch_no }}" *ngFor="let item of batchList;">{{ item.batch_no }}</option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control" formControlName="bal_qty" readonly></td>
+                                            <td><input type="text" class="form-control" formControlName="sale_rate"></td>
+                                            <td><input type="text" class="form-control" formControlName="mrp"></td>
+                                            <td><input type="text" class="form-control" formControlName="cost_rate"></td>
+                                            <td><input type="date" class="form-control" formControlName="expiry_date"></td>
+                                            <td><button class="btn btn-sm" (click)="removeBarcode(i)"><i class="fa fa-minus-circle" style="font-size: 15px; color: red;"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <div class="row top-1">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-1 form-group">
+                                    <br>
+                                    <label class="center-block">cnt : </label>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <div>
+                                        <input class="form-control mt-3" formControlName="cnt">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1 form-group">
+                                    <br>
+                                    <label class="center-block">Reason: </label>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <div>
+                                        <input class="form-control mt-3" formControlName="reason">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <br>
+                                    <label class="center-block">Supplie: </label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div>
+                                        <input class="form-control mt-3" formControlName="supplie">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2"></div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,126 @@
+<div class="main">
+  <div class="row">
+      <div class="col-sm-12" style="padding: 0;">
+          <div class="card">
+              <div class="card-body">
+                  <form [formGroup]="cityForm">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="head-1">
+                          <div class="row">
+                            <div class="col-sm-4 form-group">
+                              <label class="center-block">City Name: <span class="mandatory-input">*</span> </label>
+                              <div>
+                                <input class="form-control" appInitialCapInput formControlName="city_name">
+                              </div>
+                              <span class="validation-error mandatory-input" *ngIf="(submitted || f['city_name'].touched) && f['city_name'].errors?.['required']">City Name is required</span>
+                            </div>
+                            <div class="col-sm-4 form-group">
+                              <label class="center-block">State Code: <span class="mandatory-input">*</span> </label>
+                              <div>
+                                <mat-form-field>
+                                  <mat-select formControlName="state_code" #singleSelect>
+                                    <mat-option>
+                                      <ngx-mat-select-search placeholderLabel="Select" [formControl]="stateFilterCtrl" [preventHomeEndKeyPropagation]="true">
+                                        <span ngxMatSelectNoEntriesFound>
+                                          No data found
+                                        </span>
+                                      </ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option *ngFor="let val of state_data_arr | async" [value]="val.state_code">
+                                      {{val.state_name}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                              <span class="validation-error mandatory-input" *ngIf="(submitted || f['state_code'].touched) && f['state_code'].errors?.['required']">State Code is required</span>
+                            </div>
+                            <div class="col-sm-4 form-group" *ngIf="isEdit">
+                              <label class="center-block">Status: </label>
+                              <div>
+                                <select class="form-control" formControlName="status">
+                                  <option disabled>Select</option>
+                                  <option value="Active" selected>Active</option>
+                                  <option value="Inactive">Inactive</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6" *ngIf="isEdit">
+                        <div class="head-1">
+                          <div class="row">
+                            <div class="col-sm-3 form-group">
+                              <label class="center-block">Created By: </label>
+                              <div>
+                                <p class="form-control readonly" readonly>{{created_by}}</p>
+                              </div>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                              <label class="center-block">Created At: </label>
+                              <div>
+                                <p class="form-control readonly" readonly>{{created_at}}</p>
+                              </div>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                              <label class="center-block">Updated By: </label>
+                              <div>
+                                <p class="form-control readonly" readonly>{{updated_by}}</p>
+                              </div>
+                            </div>
+                            <div class="col-sm-3 form-group">
+                              <label class="center-block">Updated At: </label>
+                              <div>
+                                <p class="form-control readonly" readonly>{{updated_at}}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+          </div>
+          <div class="card">
+              <div class="card-body">
+                  <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover" id="evaluator_table">
+                      <thead>
+                          <tr>
+                            <th width="25">Action</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Status</th>
+                            <th>Created By</th>
+                            <th>Created Date</th>
+                            <th>Updated By</th>
+                            <th>Updated Date</th>
+                          </tr>
+                      </thead>
+                      <tbody *ngIf="data?.length != 0">
+                          <tr *ngFor="let val of data">
+                            <td class="text-center">
+                              <img class="edit-icon" src="../../../assets/icons/edit.png" (click)="editCityList(val._id)" placement="bottom" ngbTooltip="EDIT">
+                            </td>
+                            <td>{{val.city_name}}</td>
+                            <td>{{val.state_code}}</td>
+                            <td>{{val.status}}</td>
+                            <td>{{val.created_by}}</td>
+                            <td>{{val.created_at | date:'dd-MM-y HH:MM:SS'}}</td>
+                            <td>{{val.updated_by}}</td>
+                            <td>{{val.updated_at | date:'dd-MM-y HH:MM:SS'}}</td>
+                          </tr>
+                      </tbody>
+                      <tbody *ngIf="data?.length == 0">
+                          <tr>
+                              <td colspan="3" class="no-data-available">No data!</td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,205 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Loose To Finish Item"></app-module-header>
+<div class="main">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="saleReturnForm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="head-1">
+                            <div class="row">
+                                <div class="col-sm-4 form-group">
+                                    <label class="center-block">V-No: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="v_no" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="center-block">V-Date : </label>
+                                    <div>
+                                        <input class="form-control" formControlName="v_date" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="center-block">Department: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="dept" oninput="this.value = this.value.toUpperCase()">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 form-group">
+                                    <label class="center-block">Bulk Item: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="bulk_pcode">
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 form-group">
+                                    <label class="center-block">Item Name: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="bulk_pcode" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="head-1">
+                            <div class="row">
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Created By: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="created_by" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Created At: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="created_at" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Updated By: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="created_by" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Updated At: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="created_at" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <button class="btn" style="font-size: 13px; margin-top: 20px; background-color: #5494ed;">Lock/Unlock</button>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Lock By : </label>
+                                    <div>
+                                        <input class="form-control" formControlName="locked_by" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 form-group">
+                                    <label class="center-block">Lock Date: </label>
+                                    <div>
+                                        <input class="form-control" formControlName="locked_at" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="head-1">
+                    <div class="row">
+                        <div class="col-sm-12 barcode-table table-scroll table-responsive">
+                            <table class="table table-bordered" formArrayName="list">  
+                                <thead>
+                                    <tr>  
+                                        <th>No</th>
+                                        <th>LotNo</th>  
+                                        <th>Doc Type</th>  
+                                        <th>Qty Taken</th>  
+                                        <th>QTY Con</th>  
+                                        <th>Loss QTY</th>  
+                                        <th>Gain QTY</th>  
+                                        <th>Cost Rate</th>  
+                                        <th>Sale Rate</th>  
+                                        <th>MRP</th>  
+                                        <th>Actual Markup Record</th>  
+                                        <th width="30"><button type="button" (click)="addList()" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i></button></th>  
+                                    </tr>
+                                </thead>  
+                                <tbody>
+                                    <tr *ngFor="let val of list.controls; let i=index" [formGroupName]="i">  
+                                        <td style="text-align: center;">{{i+1}}</td>
+                                        <td><input type="text" formControlName="lotno" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="doctype" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="qtytaken" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="qtycon" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="lossqty" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="gainqty" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="costrate" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="salerate" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="mrp" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="markup" class="form-control"> </td>  
+                                        <td style="padding: 5px !important;"><button (click)="removeList(i)" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i></button></td>  
+                                    </tr> 
+                                </tbody>
+                                <tfoot> 
+                                    <tr>
+                                        <td></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td>-</td>
+                                        <td style="text-align: right;">Summary </td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td></td>
+                                        <td>Avg Cost</td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>  
+                        </div>
+                    </div>
+                </div>
+                <div class="head-1">
+                    <div class="row">
+                        <div class="col-sm-12 barcode-table table-scroll table-responsive">
+                            <table class="table table-bordered" formArrayName="tradlist">  
+                                <thead>
+                                    <tr>  
+                                        <th>No</th>
+                                        <th>Trade Prod</th>  
+                                        <th>Code Name</th>  
+                                        <th>Dept Code</th>  
+                                        <th>Packs</th>  
+                                        <th>Material Cost</th>  
+                                        <th>PK Cost Before</th>  
+                                        <th>Cost Rate</th>  
+                                        <th>Markup %</th>    
+                                        <th>Actual Sale Rate</th>  
+                                        <th>MRP</th>
+                                        <th width="30"><button type="button" (click)="addtradlist()" class="btn btn-warning btn-sm"><i class="fa fa-plus"></i></button></th>  
+                                    </tr>
+                                </thead>  
+                                <tbody>
+                                    <tr *ngFor="let val of tradlist.controls; let i=index" [formGroupName]="i">  
+                                        <td style="text-align: center;">{{i+1}}</td>
+                                        <td><input type="text" formControlName="trade" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="codename" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="deptcode" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="packs" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="materialcost" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="pkcost" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="costrate" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="markup" class="form-control"> </td>  
+                                        <td><input type="text" formControlName="salerate" class="form-control">  </td>  
+                                        <td><input type="text" formControlName="mrp" class="form-control">  </td>  
+                                        <td style="padding: 5px !important;"><button (click)="removetradlist(i)" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i></button></td>  
+                                    </tr> 
+                                </tbody>
+                                <tfoot> 
+                                    <tr>
+                                        <td></td>
+                                        <td>Items</td>
+                                        <td><input type="text" name="" id="" value="0"></td>
+                                        <td>Cost Rate</td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td>Qty Packed</td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td>Bal Qty.</td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td>Cal Sale Rate.</td>
+                                        <td><input type="text" class="form-control"></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>  
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

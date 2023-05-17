@@ -1,0 +1,19 @@
+<app-module-header (onSubmitChild)="onSubmit()" (downloadAsPDFChild)="downloadAsPDF()" (generateExcelChild)="generateExcel()" (onResetChild)="onReset()" moduleTitle="Category / Sub Category Master"></app-module-header>
+<div class="main">
+    <div class="row">
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isCategory ? 'activeBtn' : ''" (click)="isMenuActive('country')">Category Master</button>
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-primary" [ngClass]="isSubCategory ? 'activeBtn' : ''" (click)="isMenuActive('state')">Sub Category Master</button>
+      </div>
+    </div>
+    <div *ngIf="isCategory">
+        <app-category></app-category>
+    </div>
+    <div *ngIf="isSubCategory">
+      <app-category-sub></app-category-sub>
+    </div>
+</div>
+
+<app-footer></app-footer>
